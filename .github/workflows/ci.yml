@@ -1,0 +1,20 @@
+name: Examen CI
+
+on: [push]
+  #pull_request:
+  #  branches: [ "main" ]
+
+jobs:
+  check_code:
+    runs-on: ubuntu_latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run lint
+    - run: npm run prettier
+    - run: npm test
